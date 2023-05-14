@@ -18,7 +18,7 @@ export default class MyPlugin extends Plugin {
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('github', 'Free Sync', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			copyFile('D:/Obsidian Files/', 'D:/Projects/Github/Obsidian-storage/')
+			sync('D:/Obsidian Files/', 'D:/Projects/Github/Obsidian-storage/')
 			new Notice('File synced!');
 		});
 		// Perform additional things with the ribbon
@@ -26,8 +26,7 @@ export default class MyPlugin extends Plugin {
 	}
 }
 
-
-
-function copyFile(sourcePath: string, destinationPath: string): void {
-	fs.copy(sourcePath, destinationPath/* , (err) => { } */);
+function sync(sourcePath: string, destinationPath: string): void {
+	fs.removeSync(destinationPath);
+	fs.copySync(sourcePath, destinationPath);
 }
